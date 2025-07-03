@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - Dress Code</title>
+    <link rel="stylesheet" href="about.css?v=20250101120000" />
+    <link rel="stylesheet" href="dark-theme.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script src="theme.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="nav-container">
+        <div class="menu-dots" onclick="openSidebar()">
+          <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">
+          <img src="uploads/logo.jpg" alt="Dress Code Logo" class="logo-img" />
+          <span class="logo-text">Dress Code</span>
+        </div>
+        <a href="home.php" class="nav-link" style="margin-left: auto">
+          <i class="fas fa-home"></i> Home
+        </a>
+      </div>
+    </header>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span>Menu</span>
+        <button class="close-btn" onclick="closeSidebar()">&times;</button>
+      </div>
+      <a href="home.php"><i class="fas fa-home"></i> Home</a>
+      <a href="request.html"><i class="fas fa-tshirt"></i> Request Dress</a>
+      <a href="view_request.php"><i class="fas fa-eye"></i> View Requests</a>
+      <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+      <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      <button
+        id="theme-toggle"
+        style="
+          margin: 1rem;
+          padding: 0.5rem 1rem;
+          border-radius: 6px;
+          border: none;
+          background: #667eea;
+          color: #fff;
+          cursor: pointer;
+          font-size: 1rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        "
+      >
+        <i class="fas fa-moon"></i> Change Theme
+      </button>
+    </div>
+    <div
+      id="sidebar-overlay"
+      class="sidebar-overlay"
+      onclick="closeSidebar()"
+    ></div>
+    <style>
+      .nav-container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.5rem;
+        padding-left: 0.5rem;
+      }
+      .menu-dots {
+        margin: 0;
+        padding: 0;
+        font-size: 1.5rem;
+        color: #4a5568;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+      .menu-dots:hover {
+        color: #667eea;
+      }
+      .nav-links {
+        margin-left: auto;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0 !important;
+        width: 240px;
+        height: 100%;
+        background: #fff;
+        box-shadow: 2px 0 12px rgba(0, 0, 0, 0.08);
+        z-index: 3000;
+        transition: left 0.3s;
+        display: flex;
+        flex-direction: column;
+        padding-top: 1rem;
+      }
+      .sidebar:not(.active) {
+        left: -240px !important;
+      }
+      .sidebar.active {
+        left: 0 !important;
+      }
+      .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1rem 1rem 1rem;
+        border-bottom: 1px solid #eee;
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+      .close-btn {
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: #667eea;
+        cursor: pointer;
+      }
+      .sidebar a {
+        padding: 1rem;
+        color: #4a5568;
+        text-decoration: none;
+        font-size: 1rem;
+        border-bottom: 1px solid #f1f1f1;
+        transition: background 0.2s, color 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .sidebar a:hover {
+        background: #f3f4f6;
+        color: #667eea;
+      }
+      .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.2);
+        z-index: 1999;
+      }
+      .sidebar.active ~ #sidebar-overlay {
+        display: block;
+      }
+      @media (max-width: 768px) {
+        .nav-container {
+          padding-left: 0.5rem;
+        }
+        .sidebar {
+          width: 80vw;
+          min-width: 180px;
+          max-width: 320px;
+        }
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-left: 1.5rem;
+      }
+      .logo i {
+        font-size: 2rem;
+      }
+      .logo-img {
+        height: 48px;
+        width: 48px;
+        display: block;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+      }
+      .logo-img:hover {
+        transform: scale(1.1);
+        border-color: #667eea;
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+      }
+      .logo-text {
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-left: 0.75rem;
+      }
+      body.dark-theme .logo-img {
+        background: #fff;
+        border: 2px solid #fff;
+      }
+    </style>
+    <script>
+      function openSidebar() {
+        document.getElementById("sidebar").classList.add("active");
+        document.getElementById("sidebar-overlay").style.display = "block";
+      }
+      function closeSidebar() {
+        document.getElementById("sidebar").classList.remove("active");
+        document.getElementById("sidebar-overlay").style.display = "none";
+      }
+    </script>
+
+    <div class="main-container">
+      <div class="hero-section">
+        <div class="hero-content">
+          <h1><i class="fas fa-star"></i> About Dress Code</h1>
+          <p class="hero-subtitle">
+            Your Trusted Partner in Fashion Excellence
+          </p>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <div class="company-info">
+          <h2><i class="fas fa-building"></i> Our Company</h2>
+          <p>
+            Founded in 2025, Dress Request System has been at the forefront of
+            fashion innovation, providing exceptional dress customization
+            services to customers worldwide. We believe that every individual
+            deserves to wear clothing that perfectly reflects their style,
+            personality, and comfort.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-palette"></i>
+            </div>
+            <h3>Custom Design</h3>
+            <p>
+              We specialize in creating unique, personalized dress designs that
+              match your vision and preferences perfectly.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-award"></i>
+            </div>
+            <h3>Quality Craftsmanship</h3>
+            <p>
+              Our expert tailors and designers ensure the highest quality
+              standards in every piece we create.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <h3>Fast Delivery</h3>
+            <p>
+              We understand the importance of timing and deliver your custom
+              dresses within your specified timeline.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h3>Customer Focus</h3>
+            <p>
+              Your satisfaction is our priority. We work closely with you to
+              ensure every detail meets your expectations.
+            </p>
+          </div>
+        </div>
+
+        <div class="mission-vision">
+          <div class="mission">
+            <h2><i class="fas fa-bullseye"></i> Our Mission</h2>
+            <p>
+              To provide exceptional dress customization services that empower
+              individuals to express their unique style with confidence and
+              elegance. We strive to make high-quality, personalized fashion
+              accessible to everyone.
+            </p>
+          </div>
+
+          <div class="vision">
+            <h2><i class="fas fa-eye"></i> Our Vision</h2>
+            <p>
+              To become the leading platform for custom dress requests, known
+              for innovation, quality, and customer satisfaction. We envision a
+              world where everyone can easily access personalized fashion that
+              makes them feel beautiful and confident.
+            </p>
+          </div>
+        </div>
+
+        <div class="stats-section">
+          <h2><i class="fas fa-chart-line"></i> Our Achievements</h2>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number">1000+</div>
+              <div class="stat-label">Happy Customers</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">500+</div>
+              <div class="stat-label">Custom Designs</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">98%</div>
+              <div class="stat-label">Satisfaction Rate</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">24/7</div>
+              <div class="stat-label">Customer Support</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-section">
+          <h2><i class="fas fa-users"></i> Our Team</h2>
+          <p>
+            Our dedicated team consists of experienced fashion designers,
+            skilled tailors, and customer service professionals who are
+            passionate about bringing your vision to life. With years of
+            experience in the fashion industry, we ensure that every project
+            receives the attention and expertise it deserves.
+          </p>
+        </div>
+
+        <div class="contact-info">
+          <h2><i class="fas fa-envelope"></i> Get In Touch</h2>
+          <div class="contact-grid">
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <div>
+                <h4>Address</h4>
+                <p>
+                  123 Fashion Street, Style City<br />Design District, DC 12345
+                </p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <div>
+                <h4>Phone</h4>
+                <p>
+                  +91 8296573746<br />+91 7259763566 <br />
+                  +91 9353210496
+                </p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <div>
+                <h4>Email</h4>
+                <p>info@dressrequest.com<br />support@dressrequest.com</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-clock"></i>
+              <div>
+                <h4>Business Hours</h4>
+                <p>
+                  Monday - Friday: 9:00 AM - 6:00 PM<br />Saturday: 10:00 AM -
+                  4:00 PM
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="simple-footer">
+      <p>
+        <i class="fas fa-copyright"></i> 2025 Dress Code |
+        <i class="fas fa-exclamation-triangle"></i> We are not responsible if
+        the requested dress is not available in our store within the specified
+        time.
+      </p>
+    </footer>
+  </body>
+</html>

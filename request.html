@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Request Dress</title>
+    <link rel="stylesheet" href="request.css?v=<?php echo time(); ?>" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="dark-theme.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script src="theme.js"></script>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="nav-container">
+        <div class="menu-dots" onclick="openSidebar()">
+          <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">
+          <img src="uploads/logo.jpg" alt="Dress Code Logo" class="logo-img" />
+          <span class="logo-text">Dress Code</span>
+        </div>
+        <div class="nav-links" style="margin-left: auto">
+          <a href="home.php" class="nav-link"
+            ><i class="fas fa-home"></i> Home</a
+          >
+          <!-- <a href="request.html" class="nav-link"
+            ><i class="fas fa-tshirt"></i> Request Dress</a
+          >
+          <a href="view_request.php" class="nav-link"
+            ><i class="fas fa-eye"></i> View Requests</a
+          >
+          <a href="about.html" class="nav-link"
+            ><i class="fas fa-info-circle"></i> About</a
+          >
+          <a href="logout.php" class="nav-link"
+            ><i class="fas fa-sign-out-alt"></i> Logout</a
+          > -->
+        </div>
+      </div>
+    </header>
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <span>Menu</span>
+        <button class="close-btn" onclick="closeSidebar()">&times;</button>
+      </div>
+      <a href="home.php"><i class="fas fa-home"></i> Home</a>
+      <a href="request.html"><i class="fas fa-tshirt"></i> Request Dress</a>
+      <a href="view_request.php"><i class="fas fa-eye"></i> View Requests</a>
+      <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+      <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      <button
+        id="theme-toggle"
+        style="
+          margin: 1rem;
+          padding: 0.5rem 1rem;
+          border-radius: 6px;
+          border: none;
+          background: #667eea;
+          color: #fff;
+          cursor: pointer;
+          font-size: 1rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        "
+      >
+        <i class="fas fa-moon"></i> Change Theme
+      </button>
+    </div>
+    <div
+      id="sidebar-overlay"
+      class="sidebar-overlay"
+      onclick="closeSidebar()"
+    ></div>
+    <style>
+      .nav-container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.5rem;
+        padding-left: 0.5rem;
+      }
+      .menu-dots {
+        margin: 0;
+        padding: 0;
+        font-size: 1.5rem;
+        color: #4a5568;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+      .menu-dots:hover {
+        color: #667eea;
+      }
+      .nav-links {
+        margin-left: auto;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: -260px;
+        width: 240px;
+        height: 100%;
+        background: #fff;
+        box-shadow: 2px 0 12px rgba(0, 0, 0, 0.08);
+        z-index: 2000;
+        transition: left 0.3s;
+        display: flex;
+        flex-direction: column;
+        padding-top: 1rem;
+      }
+      .sidebar.active {
+        left: 0;
+      }
+      .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1rem 1rem 1rem;
+        border-bottom: 1px solid #eee;
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+      .close-btn {
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: #667eea;
+        cursor: pointer;
+      }
+      .sidebar a {
+        padding: 1rem;
+        color: #4a5568;
+        text-decoration: none;
+        font-size: 1rem;
+        border-bottom: 1px solid #f1f1f1;
+        transition: background 0.2s, color 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .sidebar a:hover {
+        background: #f3f4f6;
+        color: #667eea;
+      }
+      .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.2);
+        z-index: 1999;
+      }
+      .sidebar.active ~ #sidebar-overlay {
+        display: block;
+      }
+      @media (max-width: 768px) {
+        .nav-container {
+          padding-left: 0.5rem;
+        }
+        .sidebar {
+          width: 80vw;
+          min-width: 180px;
+          max-width: 320px;
+        }
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-left: 1.5rem;
+      }
+      .logo-img {
+        height: 48px;
+        width: 48px;
+        display: block;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+      }
+      .logo-img:hover {
+        transform: scale(1.1);
+        border-color: #667eea;
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+      }
+      body.dark-theme .logo-img {
+        background: #fff;
+        border: 2px solid #fff;
+      }
+      .logo-text {
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-left: 0;
+      }
+    </style>
+    <script>
+      function openSidebar() {
+        document.getElementById("sidebar").classList.add("active");
+        document.getElementById("sidebar-overlay").style.display = "block";
+      }
+      function closeSidebar() {
+        document.getElementById("sidebar").classList.remove("active");
+        document.getElementById("sidebar-overlay").style.display = "none";
+      }
+    </script>
+    <!-- Main Container -->
+    <div class="container">
+      <div class="welcome-section">
+        <i class="fas fa-tshirt user-icon"></i>
+        <h2><i class="fas fa-plus-circle"></i> Request a Dress</h2>
+        <p>
+          <i class="fas fa-info-circle"></i> Fill out the form below to request
+          your perfect dress
+        </p>
+      </div>
+
+      <!-- Form Section -->
+      <div class="form-container">
+        <div class="form-header">
+          <div class="step-indicator">
+            <div class="step active" id="step1-indicator">
+              <div class="step-number">1</div>
+              <span>Details</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step" id="step2-indicator">
+              <div class="step-number">2</div>
+              <span>Review</span>
+            </div>
+          </div>
+          <h3 class="form-title">Dress Request Form</h3>
+          <p class="form-subtitle">Tell us about your dream dress</p>
+        </div>
+
+        <!-- Step 1: Details Form -->
+        <form
+          action="request.php"
+          method="POST"
+          enctype="multipart/form-data"
+          class="premium-form"
+          id="details-form"
+        >
+          <!-- Image Upload Section -->
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fas fa-image"></i>
+              Upload Dress Reference
+            </label>
+            <div class="file-upload-area">
+              <input
+                type="file"
+                name="image"
+                id="image"
+                required
+                class="file-input"
+                accept="image/*"
+              />
+              <div class="upload-placeholder">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Click to upload or drag and drop</p>
+                <span>PNG, JPG up to 10MB</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Size Selection -->
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fas fa-ruler-horizontal"></i>
+              Select Size
+            </label>
+            <div class="size-selector">
+              <label class="size-option">
+                <input type="radio" name="size" value="S" required />
+                <span class="size-box">S</span>
+              </label>
+              <label class="size-option">
+                <input type="radio" name="size" value="M" required />
+                <span class="size-box">M</span>
+              </label>
+              <label class="size-option">
+                <input type="radio" name="size" value="L" required />
+                <span class="size-box">L</span>
+              </label>
+              <label class="size-option">
+                <input type="radio" name="size" value="XL" required />
+                <span class="size-box">XL</span>
+              </label>
+              <label class="size-option">
+                <input type="radio" name="size" value="XXL" required />
+                <span class="size-box">XXL</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Gender Selection -->
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fas fa-venus-mars"></i>
+              Gender
+            </label>
+            <div class="gender-selector">
+              <label class="gender-option">
+                <input type="radio" name="gender" value="Male" required />
+                <div class="gender-box">
+                  <i class="fas fa-mars"></i>
+                  <span>Male</span>
+                </div>
+              </label>
+              <label class="gender-option">
+                <input type="radio" name="gender" value="Female" required />
+                <div class="gender-box">
+                  <i class="fas fa-venus"></i>
+                  <span>Female</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Contact Information -->
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fas fa-phone"></i>
+              Contact Number
+            </label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                name="contact_no"
+                pattern="[0-9]{10}"
+                minlength="10"
+                maxlength="10"
+                id="contact_no"
+                placeholder="Enter 10-digit contact number"
+                required
+                class="premium-input"
+                oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)"
+              />
+              <i class="fas fa-phone input-icon"></i>
+            </div>
+            <small class="input-help"
+              >Enter exactly 10 digits (e.g., 9876543210)</small
+            >
+          </div>
+
+          <!-- Dress Details -->
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fas fa-align-left"></i>
+              Dress Details
+            </label>
+            <textarea
+              name="details"
+              id="details"
+              rows="4"
+              placeholder="Describe your dream dress in detail..."
+              required
+              class="premium-textarea"
+            ></textarea>
+          </div>
+
+          <!-- Timeline Selection -->
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fas fa-calendar-alt"></i>
+              Preferred Timeline
+            </label>
+            <div class="timeline-selector">
+              <label class="timeline-option">
+                <input type="radio" name="timeline" value="1 week" required />
+                <div class="timeline-box">
+                  <i class="fas fa-clock"></i>
+                  <span>1 Week</span>
+                  <small>Express</small>
+                </div>
+              </label>
+              <label class="timeline-option">
+                <input type="radio" name="timeline" value="2 weeks" required />
+                <div class="timeline-box">
+                  <i class="fas fa-calendar-week"></i>
+                  <span>2 Weeks</span>
+                  <small>Standard</small>
+                </div>
+              </label>
+              <label class="timeline-option">
+                <input type="radio" name="timeline" value="3 weeks" required />
+                <div class="timeline-box">
+                  <i class="fas fa-calendar-alt"></i>
+                  <span>3 Weeks</span>
+                  <small>Relaxed</small>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Step 1 Actions -->
+          <div class="form-actions">
+            <button type="button" class="premium-button" id="next-step">
+              <i class="fas fa-arrow-right"></i>
+              <span>Review Details</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Step 2: Review Form -->
+        <div class="premium-form" id="review-form" style="display: none">
+          <div class="review-header">
+            <h4><i class="fas fa-eye"></i> Review Your Request</h4>
+            <p>Please review your information before submitting</p>
+          </div>
+
+          <div class="review-content">
+            <div class="review-item">
+              <label>Dress Image:</label>
+              <div id="review-image" class="review-value"></div>
+            </div>
+
+            <div class="review-item">
+              <label>Size:</label>
+              <div id="review-size" class="review-value"></div>
+            </div>
+
+            <div class="review-item">
+              <label>Gender:</label>
+              <div id="review-gender" class="review-value"></div>
+            </div>
+
+            <div class="review-item">
+              <label>Contact Number:</label>
+              <div id="review-contact" class="review-value"></div>
+            </div>
+
+            <div class="review-item">
+              <label>Dress Details:</label>
+              <div id="review-details" class="review-value"></div>
+            </div>
+
+            <div class="review-item">
+              <label>Timeline:</label>
+              <div id="review-timeline" class="review-value"></div>
+            </div>
+          </div>
+
+          <!-- Step 2 Actions -->
+          <div class="form-actions">
+            <button
+              type="button"
+              class="premium-button secondary"
+              id="back-step"
+            >
+              <i class="fas fa-arrow-left"></i>
+              <span>Back to Edit</span>
+            </button>
+            <button type="button" class="premium-button" id="submit-final">
+              <i class="fas fa-paper-plane"></i>
+              <span>Submit Request</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="simple-footer">
+      <p>
+        <i class="fas fa-copyright"></i> 2025 Dress Code |
+        <i class="fas fa-exclamation-triangle"></i> We are not responsible if
+        the requested dress is not available in our store within the specified
+        time.
+      </p>
+    </footer>
+
+    <script>
+      // Form step management
+      let currentStep = 1;
+      const detailsForm = document.getElementById("details-form");
+      const reviewForm = document.getElementById("review-form");
+      const step1Indicator = document.getElementById("step1-indicator");
+      const step2Indicator = document.getElementById("step2-indicator");
+
+      // Next step button
+      document
+        .getElementById("next-step")
+        .addEventListener("click", function () {
+          if (validateForm()) {
+            showReviewStep();
+          }
+        });
+
+      // Back step button
+      document
+        .getElementById("back-step")
+        .addEventListener("click", function () {
+          showDetailsStep();
+        });
+
+      // Submit final button
+      document
+        .getElementById("submit-final")
+        .addEventListener("click", function () {
+          document.getElementById("details-form").submit();
+        });
+
+      function validateForm() {
+        const requiredFields = detailsForm.querySelectorAll("[required]");
+        let isValid = true;
+
+        requiredFields.forEach((field) => {
+          if (!field.value) {
+            isValid = false;
+            field.style.borderColor = "#e53e3e";
+            field.style.boxShadow = "0 0 0 3px rgba(229, 62, 62, 0.1)";
+          } else {
+            field.style.borderColor = "#e2e8f0";
+            field.style.boxShadow = "none";
+          }
+        });
+
+        // Check contact number length
+        const contactNo = document.getElementById("contact_no").value;
+        if (contactNo.length !== 10) {
+          isValid = false;
+          document.getElementById("contact_no").style.borderColor = "#e53e3e";
+          document.getElementById("contact_no").style.boxShadow =
+            "0 0 0 3px rgba(229, 62, 62, 0.1)";
+          alert("Contact number must be exactly 10 digits");
+        }
+
+        // Check if at least one option is selected for radio groups
+        const sizeSelected = detailsForm.querySelector(
+          'input[name="size"]:checked'
+        );
+        const genderSelected = detailsForm.querySelector(
+          'input[name="gender"]:checked'
+        );
+        const timelineSelected = detailsForm.querySelector(
+          'input[name="timeline"]:checked'
+        );
+
+        if (!sizeSelected || !genderSelected || !timelineSelected) {
+          isValid = false;
+          alert("Please select all required options (Size, Gender, Timeline)");
+        }
+
+        if (!isValid) {
+          alert("Please fill in all required fields correctly");
+        }
+
+        return isValid;
+      }
+
+      function showReviewStep() {
+        currentStep = 2;
+        detailsForm.style.display = "none";
+        reviewForm.style.display = "block";
+
+        // Update step indicators
+        step1Indicator.classList.remove("active");
+        step2Indicator.classList.add("active");
+
+        // Populate review content
+        populateReviewContent();
+      }
+
+      function showDetailsStep() {
+        currentStep = 1;
+        detailsForm.style.display = "block";
+        reviewForm.style.display = "none";
+
+        // Update step indicators
+        step1Indicator.classList.add("active");
+        step2Indicator.classList.remove("active");
+      }
+
+      function populateReviewContent() {
+        // Image preview
+        const imageFile = document.getElementById("image").files[0];
+        if (imageFile) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            document.getElementById(
+              "review-image"
+            ).innerHTML = `<img src="${e.target.result}" alt="Dress Preview" style="max-width: 200px; border-radius: 8px;">`;
+          };
+          reader.readAsDataURL(imageFile);
+        } else {
+          document.getElementById("review-image").textContent =
+            "No image selected";
+        }
+
+        // Size
+        const selectedSize = document.querySelector(
+          'input[name="size"]:checked'
+        );
+        document.getElementById("review-size").textContent = selectedSize
+          ? selectedSize.value
+          : "Not selected";
+
+        // Gender
+        const selectedGender = document.querySelector(
+          'input[name="gender"]:checked'
+        );
+        document.getElementById("review-gender").textContent = selectedGender
+          ? selectedGender.value
+          : "Not selected";
+
+        // Contact
+        document.getElementById("review-contact").textContent =
+          document.getElementById("contact_no").value;
+
+        // Details
+        document.getElementById("review-details").textContent =
+          document.getElementById("details").value;
+
+        // Timeline
+        const selectedTimeline = document.querySelector(
+          'input[name="timeline"]:checked'
+        );
+        document.getElementById("review-timeline").textContent =
+          selectedTimeline ? selectedTimeline.value : "Not selected";
+      }
+
+      // File upload preview
+      document.getElementById("image").addEventListener("change", function (e) {
+        const file = e.target.files[0];
+        if (file) {
+          const uploadPlaceholder = document.querySelector(
+            ".upload-placeholder"
+          );
+          uploadPlaceholder.innerHTML = `
+            <i class="fas fa-check-circle" style="color: #48bb78;"></i>
+            <p>${file.name}</p>
+            <span>File selected successfully</span>
+          `;
+        }
+      });
+    </script>
+  </body>
+</html>

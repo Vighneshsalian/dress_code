@@ -1,0 +1,34 @@
+<?php
+session_start();
+$name = isset($_SESSION['name']) ? htmlspecialchars($_SESSION['name']) : '';
+$email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : '';
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Feedback</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Leave Feedback</h2>
+        <form action="submit_feedback.php" method="POST" class="feedback-form">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required value="<?php echo $name; ?>">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required value="<?php echo $email; ?>">
+            </div>
+            <div class="form-group">
+                <label for="message">Your Feedback:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Feedback</button>
+        </form>
+    </div>
+</body>
+</html> 
