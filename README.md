@@ -10,3 +10,21 @@ A web application for managing custom dress requests, built with PHP and MySQL. 
 - Feedback form for user messages
 - Dark mode support
 - Email notifications using PHPMailer
+
+
+## Project Structure
+
+- `index.html` – Landing page
+- `register.html`, `register.php` – User registration
+- `login.html`, `login.php` – User login
+- `verify.php` – Email verification
+- `request.html`, `request.php` – Submit dress requests
+- `view_request.php` – View and track your requests
+- `admin.php` – Admin dashboard for managing requests
+- `admin_feedback.php` – Admin feedback management
+- `feedback.html`, `feedback.php`, `submit_feedback.php` – Feedback form and processing
+- `config.php` – Database connection settings
+- `dress_request_db.sql` – Database schema and sample data
+- `PHPMailer/` – Email sending library
+- CSS files for styling and dark mode
+
