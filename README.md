@@ -38,3 +38,9 @@ A web application for managing custom dress requests, built with PHP and MySQL. 
    SOURCE dress_request_db.sql;
    ```
 
+   2. The script creates:
+
+   - `users` table (with admin user: `admin@gmail.com` / `admin123`)
+   - `dress_requests` table
+   - `feedback` table
+
