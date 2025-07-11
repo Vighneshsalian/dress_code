@@ -28,3 +28,13 @@ A web application for managing custom dress requests, built with PHP and MySQL. 
 - `PHPMailer/` – Email sending library
 - CSS files for styling and dark mode
 
+
+- ## Database Setup
+
+1. Create the database and tables using the provided SQL script:
+
+   ```sql
+   -- In phpMyAdmin or MySQL CLI:
+   SOURCE dress_request_db.sql;
+   ```
+
