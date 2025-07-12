@@ -61,3 +61,8 @@ A web application for managing custom dress requests, built with PHP and MySQL. 
 3. **Configure PHPMailer:**
 
    - Update SMTP credentials in `register.php` for sending verification emails.
+  
+4. **Run the project:**
+   - Place the project in your web server's root (e.g., `htdocs` for XAMPP).
+   - Access via `http://localhost/dress_code/index.html`.
+
