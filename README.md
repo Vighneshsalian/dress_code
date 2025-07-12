@@ -46,3 +46,13 @@ A web application for managing custom dress requests, built with PHP and MySQL. 
 
 3. Update `config.php` if your database credentials differ.
 
+
+## Installation & Usage
+
+1. **Clone the repository:**
+
+   ```sh
+   git clone https://github.com/yourusername/dress_code.git
+   cd dress_code
+   ```
+
