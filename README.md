@@ -55,4 +55,9 @@ A web application for managing custom dress requests, built with PHP and MySQL. 
    git clone https://github.com/yourusername/dress_code.git
    cd dress_code
    ```
+   
+2. **Set up the database** as described above.
 
+3. **Configure PHPMailer:**
+
+   - Update SMTP credentials in `register.php` for sending verification emails.
